@@ -1,0 +1,144 @@
+<templates>
+
+    <t t-name="HrAttendanceCheckInOutButtons">
+        <div class="flex-grow-1">
+            <t t-set="emp_status" t-value="widget.employee.attendance_state"/>
+            <button  t-if="emp_status == 'checked_out'" data-state="check_in" t-attf-class="o_hr_attendance_sign_in_out_icon btn btn-success align-self-center px-5 py-3 mt-4 mb-2">
+                <span class="align-middle fs-2 me-3 text-white">Check IN</span>
+                <i t-attf-class="fa fa-4x fa-sign-in align-middle"/>
+            </button>
+            <button  t-if="emp_status == 'lunch_end' || emp_status == 'checked_in'" data-state="check_out" t-attf-class="o_hr_attendance_sign_in_out_icon btn btn-warning align-self-center px-5 py-3 mt-4 mb-2">
+                <i t-attf-class="fa fa-4x fa-sign-out align-middle"/>
+                <span class="align-middle fs-2 ms-3">Check OUT</span>
+            </button>
+            <button  t-if="emp_status == 'checked_in'" data-state="lunch_start" t-attf-class="o_hr_attendance_sign_in_out_icon btn btn-warning align-self-center px-5 py-3 mt-4 mb-2">
+                <i t-attf-class="fa fa-4x fa-cutlery align-middle"/>
+                <span class="align-middle fs-2 ms-3">Lunch Start</span>
+            </button>
+            <button  t-if="emp_status == 'lunch_start'" data-state="lunch_end" t-attf-class="o_hr_attendance_sign_in_out_icon btn btn-warning align-self-center px-5 py-3 mt-4 mb-2">
+                <i t-attf-class="fa fa-4x fa-cutlery align-middle"/>
+                <span class="align-middle fs-2 ms-3">Lunch End</span>
+            </button>
+        </div>
+    </t>
+
+    <t t-extend="HrAttendanceMyMainMenu">
+        <t t-jquery="a.o_hr_attendance_sign_in_out_icon:first" t-operation="replace">
+            <t t-set="emp_status" t-value="widget.employee.attendance_state"/>
+            <a class="fa fa-7x o_hr_attendance_sign_in_out_icon fa-sign-out btn-warning" data-state="check_out"
+               t-if="emp_status == 'lunch_end' || emp_status == 'checked_in'" aria-label="Sign out" title="Sign out">
+                <div style="font-size: 20px;">Check Out</div>
+            </a>
+        </t>
+        <t t-jquery="a.o_hr_attendance_sign_in_out_icon:eq(1)" t-operation="replace">
+            <t t-set="emp_status" t-value="widget.employee.attendance_state"/>
+            <a class="fa fa-7x o_hr_attendance_sign_in_out_icon fa-sign-in btn-secondary" data-state="check_in"
+               t-if="emp_status == 'checked_out'" aria-label="Sign in" title="Sign in">
+                <div style="font-size: 20px;">Check In</div>
+            </a>
+        </t>
+        <t t-jquery="a.o_hr_attendance_sign_in_out_icon:first" t-operation="after">
+            <t t-set="emp_status" t-value="widget.employee.attendance_state"/>
+            <a class="fa fa-7x o_hr_attendance_sign_in_out_icon fa-cutlery btn-warning" data-state="lunch_start"
+               t-if="emp_status == 'checked_in'" aria-label="Lunch Start" title="Lunch Start">
+                <div style="font-size: 20px;">Lunch Start</div>
+            </a>
+            <a class="fa fa-7x o_hr_attendance_sign_in_out_icon fa-cutlery btn-warning" data-state="lunch_end"
+               t-if="emp_status == 'lunch_start'" aria-label="Lunch End" title="Lunch End">
+                <div style="font-size: 20px;">Lunch End</div>
+            </a>
+        </t>
+        <t t-jquery="h3:first" t-operation="replace">
+            <t t-set="emp_status" t-value="widget.employee.attendance_state"/>
+            <h3 class="mt0 mb0 text-muted">Click to
+                <b t-if="emp_status == 'checked_in'">Lunch Start</b>
+                <b t-if="emp_status == 'lunch_start'">Lunch End</b>
+                <b t-if="emp_status == 'lunch_end'">Check Out</b>
+                <b t-if="emp_status == 'checked_out'">Check in</b>
+            </h3>
+        </t>
+        <t t-jquery="h3:eq(1)" t-operation="replace">
+            <t t-set="emp_status" t-value="widget.employee.attendance_state"/>
+            <h3 class="mt0 mb0 text-muted">Click to
+                <b t-if="emp_status == 'checked_in'">Lunch Start</b>
+                <b t-if="emp_status == 'lunch_start'">Lunch End</b>
+                <b t-if="emp_status == 'lunch_end'">Check Out</b>
+                <b t-if="emp_status == 'checked_out'">Check in</b>
+            </h3>
+        </t>
+    </t>
+
+    <t t-extend="HrAttendanceKioskConfirm">
+        <t t-jquery="a.o_hr_attendance_sign_in_out_icon:first" t-operation="replace">
+            <t t-set="emp_status" t-value="widget.employee_state"/>
+            <a class="fa fa-7x o_hr_attendance_sign_in_out_icon fa-sign-out btn-warning" data-state="check_out"
+               t-if="emp_status == 'lunch_end' || emp_status == 'checked_in'" aria-label="Sign out"
+               title="Sign out">
+                <div style="font-size: 20px;">Check Out</div>
+            </a>
+        </t>
+        <t t-jquery="a.o_hr_attendance_sign_in_out_icon:eq(1)" t-operation="replace">
+            <t t-set="emp_status" t-value="widget.employee_state"/>
+            <a class="fa fa-7x o_hr_attendance_sign_in_out_icon fa-sign-in btn-secondary" data-state="check_in"
+               t-if="emp_status == 'checked_out'" aria-label="Sign in" title="Sign in">
+                <div style="font-size: 20px;">Check In</div>
+            </a>
+        </t>
+        <t t-jquery="a.o_hr_attendance_sign_in_out_icon:first" t-operation="after">
+            <t t-set="emp_status" t-value="widget.employee_state"/>
+            <a class="fa fa-7x o_hr_attendance_sign_in_out_icon fa-cutlery btn-warning" data-state="lunch_start"
+               t-if="emp_status == 'checked_in'" aria-label="Lunch Start" title="Lunch Start">
+                <div style="font-size: 20px;">Lunch Start</div>
+            </a>
+            <a class="fa fa-7x o_hr_attendance_sign_in_out_icon fa-cutlery btn-warning" data-state="lunch_end"
+               t-if="emp_status == 'lunch_start'" aria-label="Lunch End" title="Lunch End">
+                <div style="font-size: 20px;">Lunch End</div>
+            </a>
+        </t>
+        <t t-jquery="h3:first" t-operation="replace">
+            <t t-set="emp_status" t-value="widget.employee_state"/>
+            <h3 class="mt0 mb0 text-muted">Click to
+                <b t-if="emp_status == 'checked_in'">Lunch Start</b>
+                <b t-if="emp_status == 'lunch_start'">Lunch End</b>
+                <b t-if="emp_status == 'lunch_end'">Check Out</b>
+                <b t-if="emp_status == 'checked_out'">Check in</b>
+            </h3>
+        </t>
+        <t t-jquery="h3:eq(1)" t-operation="replace">
+            <t t-set="emp_status" t-value="widget.employee_state"/>
+            <h3 class="mt0 mb0 text-muted">Click to
+                <b t-if="emp_status == 'checked_in'">Lunch Start</b>
+                <b t-if="emp_status == 'lunch_start'">Lunch End</b>
+                <b t-if="emp_status == 'lunch_end'">Check Out</b>
+                <b t-if="emp_status == 'checked_out'">Check in</b>
+            </h3>
+        </t>
+        <t t-jquery=".o_hr_attendance_pin_pad" t-operation="after">
+            <input name="hidden_state" type="hidden" t-att-data-state="widget.employee_state"/>
+        </t>
+        <t t-jquery="t[t-as='btn_name']" t-operation="replace">
+            <t t-if="widget.employee_state == 'checked_in'">
+                <t t-foreach="['1', '2', '3', '4', '5', '6', '7', '8', '9', ['C', 'btn-warning'], '0',['checkout', 'btn-primary', 'check_out'],['lunch-start', 'btn-primary', 'lunch_start']]"
+                   t-as="btn_name">
+                    <div class="col-4 mb4">
+                        <a t-attf-data-state="{{btn_name[2]? btn_name[2] : ''}}"
+                           t-attf-class="btn {{btn_name[1]? btn_name[1] : 'btn-secondary'}} btn-block btn-lg {{ 'o_hr_attendance_pin_pad_button_' + btn_name[0] }}">
+                            <t t-esc="btn_name[0]"/>
+                        </a>
+                    </div>
+                </t>
+            </t>
+            <t t-if="widget.employee_state != 'checked_in'">
+                <t t-foreach="['1', '2', '3', '4', '5', '6', '7', '8', '9', ['C', 'btn-warning'], '0', ['ok', 'btn-primary']]"
+                   t-as="btn_name">
+                    <div class="col-4 mb4">
+                        <a t-attf-class="btn {{btn_name[1]? btn_name[1] : 'btn-secondary'}} btn-block btn-lg {{ 'o_hr_attendance_pin_pad_button_' + btn_name[0] }}">
+                            <t t-esc="btn_name[0]"/>
+                        </a>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </t>
+
+</templates>
